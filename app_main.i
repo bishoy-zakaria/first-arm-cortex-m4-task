@@ -11,7 +11,7 @@ extern void vidFunc(short int *u16FuncArgPtr);
 char u8InitGLobalVar = 2;
 static long int u32NonInitStaticGlobalVar;
 const short int u16ConstGlobalVar = 3;
-#pragma section "Bishoy"
+__attribute__((section(".Bishoy")))
 const int arr[]={1,2,30};
 
 void main(void)

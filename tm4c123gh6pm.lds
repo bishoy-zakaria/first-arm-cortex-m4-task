@@ -15,12 +15,12 @@ SECTIONS {
         KEEP (*(.intvecs))
     } > FLASH
 	
-    .Bishoy : {
+    .Bishoy 0x01000 : {
         CREATE_OBJECT_SYMBOLS
 		
-		*(.bss)
+		*(.bishoy)
 		
-		*(.rodata)
+		*(.bishoy)
     } > FLASH	
 	
 		

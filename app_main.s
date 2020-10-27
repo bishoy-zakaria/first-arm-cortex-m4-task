@@ -29,6 +29,7 @@ u32NonInitStaticGlobalVar:
 u16ConstGlobalVar:
 	.short	3
 	.global	arr
+	.section	.Bishoy,"a"
 	.align	2
 	.type	arr, %object
 	.size	arr, 12

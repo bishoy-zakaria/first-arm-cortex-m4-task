@@ -13,49 +13,48 @@ Linker script and memory map
 .intvecs
  *(.intvecs)
 
-.Bishoy         0x00000000       0x14
+.Bishoy         0x00001000        0xc
  CREATE_OBJECT_SYMBOLS
- *(.bss)
- .bss           0x00000000        0x4 app_main.o
- .bss           0x00000004        0x0 app_2.o
- *(.rodata)
- .rodata        0x00000004       0x10 app_main.o
-                0x00000004                u16ConstGlobalVar
-                0x00000008                arr
+ *(.bishoy)
+ *(.bishoy)
+ .Bishoy        0x00001000        0xc app_main.o
+                0x00001000                arr
 
-.text           0x00000014       0x68
+.text           0x0000100c       0x68
  CREATE_OBJECT_SYMBOLS
  *(.text)
- .text          0x00000014       0x34 app_main.o
-                0x00000014                main
- .text          0x00000048       0x34 app_2.o
-                0x00000048                vidFunc
+ .text          0x0000100c       0x34 app_main.o
+                0x0000100c                main
+ .text          0x00001040       0x34 app_2.o
+                0x00001040                vidFunc
  *(.text.*)
 
-.glue_7         0x0000007c        0x0
- .glue_7        0x0000007c        0x0 linker stubs
+.glue_7         0x00001074        0x0
+ .glue_7        0x00001074        0x0 linker stubs
 
-.glue_7t        0x0000007c        0x0
- .glue_7t       0x0000007c        0x0 linker stubs
+.glue_7t        0x00001074        0x0
+ .glue_7t       0x00001074        0x0 linker stubs
 
-.vfp11_veneer   0x0000007c        0x0
- .vfp11_veneer  0x0000007c        0x0 linker stubs
+.vfp11_veneer   0x00001074        0x0
+ .vfp11_veneer  0x00001074        0x0 linker stubs
 
-.v4_bx          0x0000007c        0x0
- .v4_bx         0x0000007c        0x0 linker stubs
+.v4_bx          0x00001074        0x0
+ .v4_bx         0x00001074        0x0 linker stubs
 
-.iplt           0x0000007c        0x0
- .iplt          0x0000007c        0x0 app_main.o
+.iplt           0x00001074        0x0
+ .iplt          0x00001074        0x0 app_main.o
 
-.rel.dyn        0x0000007c        0x0
- .rel.iplt      0x0000007c        0x0 app_main.o
-
-.rodata
+.rodata         0x00001074        0x2
  *(.rodata)
+ .rodata        0x00001074        0x2 app_main.o
+                0x00001074                u16ConstGlobalVar
  *(.rodata*)
 
-.data           0x20000000        0x4 load address 0x0000007c
-                0x0000007c                __data_load__ = LOADADDR (.data)
+.rel.dyn        0x00001078        0x0
+ .rel.iplt      0x00001078        0x0 app_main.o
+
+.data           0x20000000        0x4 load address 0x00001078
+                0x00001078                __data_load__ = LOADADDR (.data)
                 0x20000000                __data_start__ = .
  *(.data)
  .data          0x20000000        0x2 app_main.o
@@ -66,19 +65,21 @@ Linker script and memory map
  *fill*         0x20000002        0x2 
                 0x20000004                __data_end__ = .
 
-.igot.plt       0x20000004        0x0 load address 0x00000080
+.igot.plt       0x20000004        0x0 load address 0x0000107c
  .igot.plt      0x20000004        0x0 app_main.o
 
-.bss            0x20000004        0x0 load address 0x00000080
+.bss            0x20000004        0x4 load address 0x0000107c
                 0x20000004                __bss_start__ = .
  *(.shbss)
  *(.bss)
+ .bss           0x20000004        0x4 app_main.o
+ .bss           0x20000008        0x0 app_2.o
  *(.bss.*)
  *(COMMON)
-                0x20000004                . = ALIGN (0x4)
-                0x20000004                __bss_end__ = .
+                0x20000008                . = ALIGN (0x4)
+                0x20000008                __bss_end__ = .
 
-.stack          0x20000008        0x0 load address 0x00000080
+.stack          0x20000008        0x0 load address 0x00001080
                 0x20000008                _stack = .
                 0x20000008                __stack = .
  *(.stack)
